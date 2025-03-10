@@ -3,48 +3,520 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OwO Host - 便宜低延遲伺服器托管</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>OwO Host - 專業遊戲與應用程式託管服務</title>
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --dark: #2d3436;
+            --light: #dfe6e9;
+            --success: #00b894;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f6fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/800/400') center/cover;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(253, 121, 168, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(253, 121, 168, 0.5);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .service-desc {
+            color: #636e72;
+            font-size: 0.95rem;
+        }
+        
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .plan-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary);
+        }
+        
+        .plan-name {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #636e72;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .plan-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .featured {
+            position: absolute;
+            top: 25px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 3rem;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo span {
+            color: var(--accent);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #b2bec3;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: #636e72;
+            font-size: 1.1rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            margin-right: 1rem;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .cta {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 5rem 0;
+        }
+        
+        .cta h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .services, .plans {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-
-    <!-- 首頁全螢幕 -->
-    <section id="hero">
-        <h1 id="typing-text"></h1>
-        <a href="#services" class="scroll-down">⬇ 滑動查看 ⬇</a>
+    <header>
+        <div class="header-content">
+            <div class="container">
+                <div class="logo">Ow<span>O</span> Host</div>
+                <p class="tagline">專業的遊戲與應用程式託管服務，為您提供高性能、穩定的伺服器解決方案</p>
+                <a href="#plans" class="btn">查看方案</a>
+            </div>
+        </div>
+    </header>
+    
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <img src="/api/placeholder/600/400" alt="OwO Host 伺服器" />
+                </div>
+                <div class="about-content">
+                    <h3>為什麼選擇 OwO Host？</h3>
+                    <p>OwO Host 提供高性能的伺服器託管服務，讓您能夠輕鬆部署各種應用程式，無論是遊戲伺服器還是網站應用。我們承諾提供最佳的用戶體驗和技術支援。</p>
+                    <ul class="feature-list">
+                        <li>高效能 SSD 儲存，確保快速讀寫速度</li>
+                        <li>99.9% 的服務可用性保證</li>
+                        <li>全天候技術支援，隨時為您解決問題</li>
+                        <li>簡易的控制面板，讓您輕鬆管理伺服器</li>
+                        <li>彈性的資源配置，按需擴展</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
-
-    <!-- 服務列表 -->
-    <section id="services">
-        <h2>我們支援的服務</h2>
-        <p>Minecraft、Python、Node.js、Golang、Uptime Kuma</p>
+    
+    <section id="services" style="background-color: #f0f2f5;">
+        <div class="container">
+            <h2 class="section-title">我們的服務</h2>
+            <div class="services">
+                <div class="service-card">
+                    <div class="service-icon">🎮</div>
+                    <h3 class="service-title">Minecraft</h3>
+                    <p class="service-desc">專業的 Minecraft 伺服器託管，支援各種版本和模組，為您提供流暢的遊戲體驗。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🐍</div>
+                    <h3 class="service-title">Python</h3>
+                    <p class="service-desc">高效能的 Python 應用程式託管，支援主流框架如 Django、Flask 等，輕鬆部署您的 Python 專案。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3 class="service-title">Node.js</h3>
+                    <p class="service-desc">快速、可靠的 Node.js 環境，讓您的 JavaScript 應用程式輕鬆運行，支援 Express、Next.js 等框架。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚀</div>
+                    <h3 class="service-title">Golang</h3>
+                    <p class="service-desc">高性能的 Go 語言運行環境，為您的 Golang 應用提供穩定、快速的執行平台。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">Uptime Kuma</h3>
+                    <p class="service-desc">專業的服務監控工具，隨時掌握您的應用程式運行狀態，確保服務持續可用。</p>
+                </div>
+            </div>
+        </div>
     </section>
-
-    <!-- 方案 -->
+    
     <section id="plans">
-        <h2>我們的方案</h2>
-        <div class="plan">
-            <h3>煤礦</h3>
-            <p>4GB 記憶體 / 8GB 儲存空間</p>
-            <p class="price">NT$25 / 月</p>
-        </div>
-        <div class="plan">
-            <h3>鐵礦</h3>
-            <p>8GB 記憶體 / 8GB 儲存空間</p>
-            <p class="price">NT$50 / 月</p>
-        </div>
-        <div class="plan">
-            <h3>銅礦</h3>
-            <p>12GB 記憶體 / 12GB 儲存空間</p>
-            <p class="price">NT$70 / 月</p>
-        </div>
-        <div class="plan">
-            <h3>金礦</h3>
-            <p>12GB 記憶體 / 20GB 儲存空間</p>
-            <p class="price">NT$90 / 月</p>
+        <div class="container">
+            <h2 class="section-title">我們的方案</h2>
+            <div class="plans">
+                <div class="plan-card">
+                    <h3 class="plan-name">煤礦</h3>
+                    <p class="plan-price">NT$25 <span>/ 月</span></p>
+                    <ul class="plan-features">
+                        <li><strong>4GB</strong> 記憶體</li>
+                        <li><strong>8GB</strong> 儲存空間</li>
+                        <li>24/7 技術支援</li>
+                        <li>控制面板</li>
+                    </ul>
+                    <a href="#" class="btn">立即選購</a>
+                </div>
+                <div class="plan-card">
+                    <h3 class="plan-name">鐵礦</h3>
+                    <p class="plan-price">NT$50 <span>/ 月</span></p>
+                    <ul class="plan-features">
+                        <li><strong>8GB</strong> 記憶體</li>
+                        <li><strong>8GB</strong> 儲存空間</li>
+                        <li>24/7 技術支援</li>
+                        <li>控制面板</li>
+                        <li>優先支援</li>
+                    </ul>
+                    <a href="#" class="btn">立即選購</a>
+                </div>
+                <div class="plan-card">
+                    <div class="featured">熱門</div>
+                    <h3 class="plan-name">銅礦</h3>
+                    <p class="plan-price">NT$70 <span>/ 月</span></p>
+                    <ul class="plan-features">
+                        <li><strong>12GB</strong> 記憶體</li>
+                        <li><strong>12GB</strong> 儲存空間</li>
+                        <li>24/7 技術支援</li>
+                        <li>控制面板</li>
+                        <li>優先支援</li>
+                        <li>備份還原</li>
+                    </ul>
+                    <a href="#" class="btn">立即選購</a>
+                </div>
+                <div class="plan-card">
+                    <h3 class="plan-name">金礦</h3>
+                    <p class="plan-price">NT$90 <span>/ 月</span></p>
+                    <ul class="plan-features">
+                        <li><strong>12GB</strong> 記憶體</li>
+                        <li><strong>20GB</strong> 儲存空間</li>
+                        <li>24/7 技術支援</li>
+                        <li>控制面板</li>
+                        <li>最高優先支援</li>
+                        <li>備份還原</li>
+                        <li>免費域名</li>
+                    </ul>
+                    <a href="#" class="btn">立即選購</a>
+                </div>
+            </div>
         </div>
     </section>
-
-    <script src="script.js"></script>
+    
+    <section class="cta">
+        <div class="container">
+            <h3>準備好開始了嗎？</h3>
+            <p>立即註冊 OwO Host，享受高性能、穩定的伺服器託管服務，讓您的應用程式運行無憂。</p>
+            <a href="#" class="btn">立即開始</a>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Ow<span>O</span> Host</div>
+            <p>專業的遊戲與應用程式託管服務</p>
+            <div class="footer-links">
+                <a href="#">首頁</a>
+                <a href="#about">關於我們</a>
+                <a href="#services">服務</a>
+                <a href="#plans">方案</a>
+                <a href="#">聯絡我們</a>
+                <a href="#">幫助中心</a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 OwO Host 版權所有
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
